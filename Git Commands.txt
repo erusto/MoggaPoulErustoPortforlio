@@ -1,0 +1,10 @@
+Update Repository files and folders
+-git add .
+-git status
+-git commit -m "Change made"
+-git push
+
+
+
+
+

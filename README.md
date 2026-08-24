@@ -11,6 +11,11 @@ Public portfolio for Mogga Poul Erusto, an information management, data engineer
 - Enterprise application architecture and digital transformation
 - Humanitarian and development technology
 
+## Education
+
+- **MSc Information Technology (Data Engineering)** — ISBAT University
+- **BSc Applied Information Technology** — ISBAT University
+
 ## Selected work
 
 - **HumanoSys ERMS** — modular programme and project management technology for results chains, activities, indicators, beneficiaries, forms, analytics, access control and AI-assisted workflows.

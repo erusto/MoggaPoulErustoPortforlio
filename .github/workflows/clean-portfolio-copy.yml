@@ -1,0 +1,61 @@
+name: Clean portfolio copy
+on:
+  push:
+    paths:
+      - '.github/workflows/clean-portfolio-copy.yml'
+permissions:
+  contents: write
+jobs:
+  clean:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Make portfolio copy more natural
+        shell: python
+        run: |
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+          replacements = {
+            'Mogga Poul Erusto | Enterprise Systems, Data & Digital Transformation': 'Mogga Poul Erusto | Information Management & Enterprise Systems',
+            'Designing digital systems that connect programmes, people, data and decisions.': 'Information management, data engineering and enterprise systems.',
+            'Juba, South Sudan · Digital Systems · Data': 'Juba, South Sudan · Information Management · Enterprise Systems',
+            'I build systems that turn complexity into <span class="accent">clarity.</span>': 'I design systems for programmes, data and <span class="accent">operations.</span>',
+            'I’m Mogga Poul Erusto — an information management, data engineering and enterprise systems professional designing technology that connects programmes, people, evidence and decisions.': 'I’m Mogga Poul Erusto. I work across information management, data engineering and enterprise systems, with experience in humanitarian operations and digital product development.',
+            'Explore selected work ↗': 'View work ↗',
+            '<div class="portrait-label"><small>Professional portrait</small><strong>Mogga Poul Erusto</strong></div>': '',
+            '<div class="floating-tag two">Humanitarian × Enterprise × <b>AI</b></div>': '',
+            ' AI-Enabled Workflows <i></i>': '',
+            '01 · Selected work': '01 · Work',
+            'Systems with operational depth.': 'Selected work',
+            'My strongest work sits where programme logic, data architecture, user experience and enterprise technology meet.': 'A few systems and data projects that reflect the direction of my work.',
+            'Enterprise & Humanitarian Technology': 'Programme & Project Systems',
+            'A modular programme and project management platform connecting results chains, activities, tasks, indicators, beneficiary workflows, forms, analytics, access control and AI-assisted workflows.': 'A modular platform for programmes and projects, linking results chains, activities, tasks, indicators, beneficiaries, forms, analytics and access control.',
+            'Structured reporting and data workflows for human mobility information.': 'Reporting and data workflows for human mobility information.',
+            'Practical analytics, preparation, querying and insight generation.': 'SQL work focused on data preparation, querying and analysis.',
+            'Built through real delivery.': 'Experience',
+            'A progression from database and ICT work into information management, analytics, systems thinking and enterprise product development.': 'Roles across information management, data, health systems and ICT.',
+            'Remote data migration quality assurance and validation work.': 'Data migration quality assurance, validation and reconciliation.',
+            'Technical depth. Product thinking.': 'Capabilities',
+            'The portfolio reflects the ability to translate operational problems into usable digital systems.': 'The areas I work in most often.',
+            'Enterprise Systems & Architecture': 'Enterprise Systems',
+            '.NET/C#, relational architectures, multi-tenant SaaS, APIs, roles and AI-enabled workflows.': '.NET/C#, relational systems, multi-tenant applications, APIs and access control.',
+            'Networking, Windows/Linux administration and practical ICT support reinforced by Cisco training.': 'Networking, Windows/Linux administration and practical ICT support.',
+            'Advanced grounding in data engineering and information technology, building on a BSc in Applied Information Technology from ISBAT University.': 'MSc Information Technology (Data Engineering), building on a BSc in Applied Information Technology from ISBAT University.',
+            '05 · Connect': '05 · Contact',
+            'Build useful systems. Make complexity disappear.': 'Connect with me',
+            'For professional collaboration, enterprise systems, analytics, humanitarian technology or HumanoSys conversations, connect through LinkedIn or explore my public work.': 'LinkedIn is the easiest way to reach me professionally. You can also view my public work on GitHub or visit HumanoSys.',
+            'Connect on LinkedIn ↗': 'LinkedIn ↗',
+            'Juba · Enterprise Systems · Information Management · Data': 'Juba, South Sudan'
+          }
+          for old, new in replacements.items():
+              s = s.replace(old, new)
+          s = s.replace('background:linear-gradient(180deg,transparent 58%,rgba(0,0,0,.62))', 'background:linear-gradient(180deg,transparent 72%,rgba(0,0,0,.30))')
+          p.write_text(s, encoding='utf-8')
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git diff --cached --quiet || git commit -m "Make portfolio copy more natural"
+          git push

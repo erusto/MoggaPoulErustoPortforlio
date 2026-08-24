@@ -1,0 +1,43 @@
+name: Add portrait editorial copy
+
+on:
+  push:
+    paths:
+      - '.github/workflows/add-portrait-copy.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  update-portrait-copy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Add editorial copy to portrait
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+
+          css_anchor = '.floating-tag b{color:var(--accent)}'
+          css_add = '''.floating-tag b{color:var(--accent)}.portrait-copy{position:absolute;left:24px;right:24px;bottom:24px;z-index:3;display:grid;gap:5px;text-shadow:0 2px 14px rgba(0,0,0,.58)}.portrait-copy span{font:700 9px/1.35 "DM Sans",system-ui,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:rgba(243,239,231,.78)}.portrait-copy span:first-child{color:#fff}.portrait-copy span:last-child{color:var(--accent)}'''
+          if '.portrait-copy{' not in s:
+              s = s.replace(css_anchor, css_add)
+
+          old = '<div class="portrait-card"><img alt="Mogga Poul Erusto" src="assets/images/mogga-clean-portrait-hq.webp"></div><div class="floating-tag one"><b>7+</b> years across data & ICT</div>'
+          new = '<div class="portrait-card"><img alt="Mogga Poul Erusto" src="assets/images/mogga-clean-portrait-hq.webp"><div class="portrait-copy"><span>Information Management · Data Engineering</span><span>Enterprise Systems · Humanitarian Technology</span><span>AI-Enabled Workflows</span></div></div><div class="floating-tag one"><b>7+</b> years across data & ICT</div>'
+          if old not in s and 'Information Management · Data Engineering' not in s:
+              raise SystemExit('Expected portrait markup not found; refusing blind edit')
+          s = s.replace(old, new)
+
+          p.write_text(s, encoding='utf-8')
+          PY
+      - name: Commit portrait copy and remove one-time workflow
+        run: |
+          rm .github/workflows/add-portrait-copy.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git diff --cached --quiet || git commit -m 'Add editorial copy to portrait'
+          git push

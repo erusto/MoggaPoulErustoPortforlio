@@ -27,7 +27,7 @@ Public portfolio for Mogga Poul Erusto, an information management, data engineer
 
 - Portfolio: https://erusto.github.io/MoggaPoulErustoPortforlio/
 - GitHub: https://github.com/erusto
-- LinkedIn: https://www.linkedin.com/in/mogga-poul-erusto-015694171/
+- LinkedIn: https://www.linkedin.com/in/mogga-poul-erusto-msc-l-ma-015694171/
 - HumanoSys: https://www.humanosys.com/
 
 This repository intentionally does not publish personal telephone numbers or private email addresses. Professional enquiries should be made through LinkedIn or HumanoSys.

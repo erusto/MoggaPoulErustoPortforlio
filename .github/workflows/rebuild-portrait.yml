@@ -1,0 +1,43 @@
+name: Rebuild HQ portrait
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/rebuild-portrait.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  rebuild:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reconstruct high-resolution portrait
+        shell: bash
+        run: |
+          cat assets/images/portrait-hq/part1.txt \
+              assets/images/portrait-hq/part2.txt \
+              assets/images/portrait-hq/part3.txt \
+              assets/images/portrait-hq/part4.txt \
+              assets/images/portrait-hq/part5a.txt \
+              assets/images/portrait-hq/part5b.txt > /tmp/portrait.b64
+          base64 --decode /tmp/portrait.b64 > assets/images/mogga-clean-portrait-hq.webp
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+          s = s.replace('assets/images/mogga-clean-portrait.jpg', 'assets/images/mogga-clean-portrait-hq.webp')
+          s = s.replace('filter:grayscale(100%) contrast(1.08) brightness(.92);transform:scale(1.015)', 'filter:grayscale(100%) contrast(1.02) brightness(1);transform:none')
+          p.write_text(s, encoding='utf-8')
+          PY
+      - name: Commit reconstructed asset
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html assets/images/mogga-clean-portrait-hq.webp
+          git commit -m 'Use full-resolution portrait in hero' || exit 0
+          git push

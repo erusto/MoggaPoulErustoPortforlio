@@ -1,20 +1,31 @@
-# Mogga Poul Erusto — Professional Portfolio
+# Mogga Poul Erusto — Information Management, Data Engineering & Enterprise Systems
 
-Public portfolio for Mogga Poul Erusto, an information management, data engineering and digital systems professional based in Juba, South Sudan.
+Professional portfolio for **Mogga Poul Erusto** (also published professionally as **Poul Mogga Erusto Piya**), based in Juba, South Sudan.
+
+My work spans information management, data engineering, enterprise systems, humanitarian technology, analytics, GIS, monitoring and evaluation, data quality, ICT infrastructure and digital transformation.
 
 ## Focus areas
 
-- Information management and data governance
-- Data engineering, analytics and visualization
-- GIS and field-data systems
+- Information management, reporting and data governance
+- Data engineering, SQL, analytics and visualization
+- GIS, field-data and humanitarian information systems
 - Monitoring, evaluation and results information
-- Enterprise application architecture and digital transformation
-- Humanitarian and development technology
+- Enterprise application architecture, APIs and multi-tenant systems
+- AI-enabled workflows and digital transformation
+- ICT infrastructure, networking and systems administration
 
 ## Education
 
+- **MBA** — University of East London
 - **MSc Information Technology (Data Engineering)** — ISBAT University
 - **BSc Applied Information Technology** — ISBAT University
+
+## Selected professional experience
+
+- **Information Management Associate — IOM South Sudan (2023–2026)**
+- **Data Migration Quality Assurance — PwC Nigeria (2023)**
+- **Health Information Systems Analyst — IntraHealth International (2021–2022)**
+- **Database Assistant — IOM DTM (2019–2020)**
 
 ## Selected work
 
